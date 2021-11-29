@@ -6,12 +6,14 @@ version 1.0
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.squareup.haha:haha:2.1'
+    implementation 'com.google.code.gson:gson:2.8.9'
 }
 
 
 jar {
     manifest {
-        attributes 'Main-Class': 'com.hprof.bitmap.Main'
+        attributes 'Main-Class': 'Main'
         attributes 'Manifest-Version': version
     }
 
@@ -35,4 +37,9 @@ task buildAlloctrackJar(type: Copy, dependsOn: [build, jar]) {
         exclude '*-sources.jar'
     }
     into(rootProject.file("tools"))
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
