@@ -238,6 +238,7 @@ public class MethodTracer {
         }
     }
 
+    //在方法的开头和结束位置插入代码
     private class TraceMethodAdapter extends AdviceAdapter {
 
         private final String methodName;
@@ -273,6 +274,7 @@ public class MethodTracer {
                     }
                 }
                 mv.visitLdcInsn(sectionName);
+                //调用TraceTag.i($sectionName)
                 mv.visitMethodInsn(INVOKESTATIC, TraceBuildConstants.MATRIX_TRACE_METHOD_BEAT_CLASS, "i", "(Ljava/lang/String;)V", false);
             }
         }
@@ -291,6 +293,7 @@ public class MethodTracer {
 
                 traceMethodCount.incrementAndGet();
                 //mv.visitLdcInsn(traceMethod.id);
+                //调用TraceTag.o()
                 mv.visitMethodInsn(INVOKESTATIC, TraceBuildConstants.MATRIX_TRACE_METHOD_BEAT_CLASS, "o", "()V", false);
             }
         }

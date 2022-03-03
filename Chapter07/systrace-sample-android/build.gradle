@@ -11,6 +11,7 @@ buildscript {
     dependencies {
         // classpath
         classpath 'com.android.tools.build:gradle:3.2.1'
+        //changing=true 每次编译都去检查远程仓库
         classpath ("com.geektime.systrace:systrace-gradle-plugin:1.0") { changing = true }
 
     }

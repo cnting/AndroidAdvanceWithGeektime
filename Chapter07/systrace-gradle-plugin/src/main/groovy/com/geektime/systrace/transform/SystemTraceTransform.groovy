@@ -33,7 +33,6 @@ public class SystemTraceTransform extends BaseProxyTransform {
     }
 
     public static void inject(Project project, def variant) {
-
         String hackTransformTaskName = getTransformTaskName(
                  "",
                 "",variant.name
@@ -43,12 +42,12 @@ public class SystemTraceTransform extends BaseProxyTransform {
                  "",
                 "Builder",variant.name
         )
-
         project.logger.info("prepare inject dex transform :" + hackTransformTaskName +" hackTransformTaskNameForWrapper:"+hackTransformTaskNameForWrapper)
-
+        //建立完Task有向图后进行hook
         project.getGradle().getTaskGraph().addTaskExecutionGraphListener(new TaskExecutionGraphListener() {
             @Override
             public void graphPopulated(TaskExecutionGraph taskGraph) {
+                //AGP4.x开始transformClassesWithDexBuilderForXXX已经被删除，所以下面方法没用了
                 for (Task task : taskGraph.getAllTasks()) {
                     if ((task.name.equalsIgnoreCase(hackTransformTaskName) || task.name.equalsIgnoreCase(hackTransformTaskNameForWrapper))
                             && !(((TransformTask) task).getTransform() instanceof SystemTraceTransform)) {
@@ -80,6 +79,7 @@ public class SystemTraceTransform extends BaseProxyTransform {
         }
         final TraceBuildConfig traceConfig = initConfig()
         Log.i("Systrace." + getName(), "[transform] isIncremental:%s rootOutput:%s", isIncremental, rootOutput.getAbsolutePath())
+        //解析mapping，找方法和类的原名
         final MappingCollector mappingCollector = new MappingCollector()
         File mappingFile = new File(traceConfig.getMappingPath());
         if (mappingFile.exists() && mappingFile.isFile()) {
@@ -102,6 +102,7 @@ public class SystemTraceTransform extends BaseProxyTransform {
         }
 
         MethodCollector methodCollector = new MethodCollector(traceConfig, mappingCollector)
+        //拿到需要插桩的方法
         HashMap<String, TraceMethod> collectedMethodMap = methodCollector.collect(scrInputMap.keySet().toList(), jarInputMap.keySet().toList())
         MethodTracer methodTracer = new MethodTracer(traceConfig, collectedMethodMap, methodCollector.getCollectedClassExtendMap())
         methodTracer.trace(scrInputMap, jarInputMap)
@@ -210,7 +211,7 @@ public class SystemTraceTransform extends BaseProxyTransform {
         replaceFile(input, jarOutput)
     }
 
-
+    //taskName的规则：transform${inputType}With${transformName}For${BuildType}
     static
     private String getTransformTaskName(String customDexTransformName, String wrappSuffix, String buildTypeSuffix) {
         if(customDexTransformName != null && customDexTransformName.length() > 0) {

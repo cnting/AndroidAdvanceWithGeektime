@@ -33,7 +33,7 @@ python $ANDROID_HOME/platform-tools/systrace/systrace.py gfx view wm am pm ss da
 ```
 
 ---
-## 运行不起来？
+## 运行有问题？
 #### 生成插件有问题
 1. 找不到类？在`systrace-gradle-plugin`的`build.gradle`里添加如下
 ```groovy
@@ -76,3 +76,8 @@ gradle.taskGraph.whenReady {
             }
 }
 ```
+
+#### 运行起来了，但Transform有问题
+看这里：[谨慎hook，一个hook Transform源码导致的错误！](https://juejin.cn/post/7070322767568044062)
+项目里是hook `transformClassesWithDexBuilderForXXX` 这个task，到AGP 4.x，这个task已经被删除了，这个任务交给了 `DexArchiveBuilderTask`。
+可以看这个项目：[TraceFix](https://github.com/Gracker/TraceFix)

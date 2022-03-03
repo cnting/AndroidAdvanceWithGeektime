@@ -76,11 +76,13 @@ public class MethodCollector {
     }
 
     public HashMap collect(List<File> srcFolderList, List<File> dependencyJarList) {
+        //解析不插桩的白名单
         mTraceConfig.parseBlackFile(mMappingCollector);
 
         File originMethodMapFile = new File(mTraceConfig.getBaseMethodMap());
         getMethodFromBaseMethod(originMethodMapFile);
         Log.i(TAG, "[collect] %s method from %s", mCollectedMethodMap.size(), mTraceConfig.getBaseMethodMap());
+        //改成混淆后的名字
         retraceMethodMap(mMappingCollector, mCollectedMethodMap);
 
         collectMethodFromSrc(srcFolderList, true);
@@ -372,12 +374,13 @@ public class MethodCollector {
 
     private class TraceClassAdapter extends ClassVisitor {
         private String className;
-        private boolean isABSClass = false;
+        private boolean isABSClass = false;  //是否是抽象类或接口
 
         TraceClassAdapter(int i, ClassVisitor classVisitor) {
             super(i, classVisitor);
         }
 
+        //访问类的头部
         @Override
         public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
             super.visit(version, access, name, signature, superName, interfaces);
@@ -389,6 +392,7 @@ public class MethodCollector {
 
         }
 
+        //访问类的方法
         @Override
         public MethodVisitor visitMethod(int access, String name, String desc,
                                          String signature, String[] exceptions) {

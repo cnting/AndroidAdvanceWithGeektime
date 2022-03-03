@@ -136,6 +136,7 @@ public class TraceBuildConfig {
     }
 
     /**
+     * 解析不插桩的白名单
      * parse the BlackFile in order to pass some class/method
      * @param processor
      */
