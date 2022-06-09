@@ -47,7 +47,7 @@ public class SystemTraceTransform extends BaseProxyTransform {
         project.getGradle().getTaskGraph().addTaskExecutionGraphListener(new TaskExecutionGraphListener() {
             @Override
             public void graphPopulated(TaskExecutionGraph taskGraph) {
-                //AGP4.x开始transformClassesWithDexBuilderForXXX已经被删除，所以下面方法没用了
+                //AGP4.x开始transformClassesWithDexBuilderForXXX已经被删除，所以下面方法没用了。AGP改到3.x才行
                 for (Task task : taskGraph.getAllTasks()) {
                     if ((task.name.equalsIgnoreCase(hackTransformTaskName) || task.name.equalsIgnoreCase(hackTransformTaskNameForWrapper))
                             && !(((TransformTask) task).getTransform() instanceof SystemTraceTransform)) {
@@ -105,6 +105,7 @@ public class SystemTraceTransform extends BaseProxyTransform {
         //拿到需要插桩的方法
         HashMap<String, TraceMethod> collectedMethodMap = methodCollector.collect(scrInputMap.keySet().toList(), jarInputMap.keySet().toList())
         MethodTracer methodTracer = new MethodTracer(traceConfig, collectedMethodMap, methodCollector.getCollectedClassExtendMap())
+        //插桩
         methodTracer.trace(scrInputMap, jarInputMap)
         origTransform.transform(transformInvocation)
         Log.i("Systrace." + getName(), "[transform] cost time: %dms", System.currentTimeMillis() - start)

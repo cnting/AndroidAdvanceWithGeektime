@@ -273,6 +273,7 @@ public class MethodTracer {
                         sectionName = sectionName.substring(length - TraceBuildConstants.MAX_SECTION_NAME_LEN);
                     }
                 }
+                //加载常量
                 mv.visitLdcInsn(sectionName);
                 //调用TraceTag.i($sectionName)
                 mv.visitMethodInsn(INVOKESTATIC, TraceBuildConstants.MATRIX_TRACE_METHOD_BEAT_CLASS, "i", "(Ljava/lang/String;)V", false);
