@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.sample.battery.MainActivity">
+
+    <Button
+        android:id="@+id/hook_alarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hook alarm" />
+
+    <Button
+        android:id="@+id/alarm_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test_io"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="alarm set" />
+
+    <Button
+        android:id="@+id/alarm_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test_io"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="alarm cancel" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="20dp"
+        android:background="@android:color/black" />
+
+    <Button
+        android:id="@+id/hook_wakelock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test_gc"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="hook wakelock" />
+
+    <Button
+        android:id="@+id/wakelock_acquire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test_io"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="wakelock acquire" />
+
+    <Button
+        android:id="@+id/wakelock_release"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test_io"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="wakelock release" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="20dp"
+        android:background="@android:color/black" />
+
+    <Button
+        android:id="@+id/hook_gps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test_io"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="hook gps" />
+
+
+    <Button
+        android:id="@+id/gps_request"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test_io"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="gps request" />
+
+    <Button
+        android:id="@+id/gps_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/test_io"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="gps remove" />
+
+
+</LinearLayout>
+
