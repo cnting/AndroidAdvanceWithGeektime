@@ -403,6 +403,7 @@ public class MethodCollector {
             }
         }
 
+
         @Override
         public void visitEnd() {
             super.visitEnd();
@@ -456,6 +457,7 @@ public class MethodCollector {
 //                return false;
 //            }
             int ignoreCount = 0;
+            //查看指令
             ListIterator<AbstractInsnNode> iterator = instructions.iterator();
             while (iterator.hasNext()) {
                 AbstractInsnNode insnNode = iterator.next();
